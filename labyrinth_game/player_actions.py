@@ -29,7 +29,7 @@ def move_player(game_state, direction):
         target_room = ROOMS[current_room]['exits'][direction]
         inventory = game_state['player_inventory']
         if target_room == 'treasure_room':
-            if 'treasure_key' not in inventory and 'rusty_key' not in inventory:
+            if 'rusty_key' not in inventory:
                 print('Дверь заперта. Нужен ключ, чтобы пройти дальше.')
                 return
             else:
@@ -47,6 +47,9 @@ def move_player(game_state, direction):
 
 def take_item(game_state, item_name):
     '''Allow the player to take an item from the current room.'''
+    if item_name == 'treasure_chest':
+        print('Вы не можете поднять сундук, он слишком тяжелый.')
+        return
     current_room = game_state['current_room']
     items = ROOMS[current_room]['items']
     if item_name in items:
