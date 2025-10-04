@@ -35,7 +35,7 @@ def process_command(game_state, command_line):
         case 'use':
             if arg:
                 if (
-                    arg == 'treasure chest'
+                    arg == 'treasure_chest'
                     and game_state['current_room'] == 'treasure_room'
                 ):
                     attempt_open_treasure(game_state, get_input)

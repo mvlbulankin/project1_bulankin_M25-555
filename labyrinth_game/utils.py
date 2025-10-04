@@ -111,13 +111,11 @@ def attempt_open_treasure(game_state, get_input):
     if current_room != 'treasure_room':
         return
     items = ROOMS[current_room]['items']
-    if 'treasure chest' not in items:
-        print('Сундук уже открыт или отсутствует.')
-        return
     inventory = game_state['player_inventory']
-    if 'treasure_key' in inventory or 'rusty_key' in inventory:
+    if 'treasure_key' in inventory:
         print('Вы применяете ключ, и замок щёлкает. Сундук открыт!')
-        items.remove('treasure chest')
+        if 'treasure_chest' in items:
+            items.remove('treasure_chest')
         print('В сундуке сокровище! Вы победили!')
         game_state['game_over'] = True
         return
@@ -135,7 +133,8 @@ def attempt_open_treasure(game_state, get_input):
                 correct = code == answer
             if correct:
                 print('Верно! Сундук открыт.')
-                items.remove('treasure chest')
+                if 'treasure_chest' in items:
+                    items.remove('treasure_chest')
                 print('В сундуке сокровище! Вы победили!')
                 game_state['game_over'] = True
             else:
